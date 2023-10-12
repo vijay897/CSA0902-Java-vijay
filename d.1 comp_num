@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class CompositeNumbers {
+    public static boolean isComposite(int n) {
+        if (n < 4)
+            return false;
+
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static void printCompositeNumbers(int a, int b) {
+        for (int num = a; num <= b; num++) {
+            if (isComposite(num))
+                System.out.println(num);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the starting number (A): ");
+        int A = scanner.nextInt();
+
+        System.out.print("Enter the ending number (B): ");
+        int B = scanner.nextInt();
+
+        printCompositeNumbers(A, B);
+    }
+}
