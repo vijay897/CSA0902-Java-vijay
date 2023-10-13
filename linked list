@@ -1,0 +1,67 @@
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+public class RotateLinkedList {
+
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
+
+        int length = 1;
+        ListNode tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+            length++;
+        }
+
+        int new_head_position = length - k % length;
+        if (new_head_position == length) {
+            return head;
+        }
+
+        ListNode new_head = head;
+        for (int i = 1; i < new_head_position; i++) {
+            new_head = new_head.next;
+        }
+
+        tail.next = head;
+        head = new_head.next;
+        new_head.next = null;
+
+        return head;
+    }
+
+    public void printList(ListNode head) {
+        ListNode current = head;
+        while (current != null) {
+            System.out.print(current.val + " -> ");
+            current = current.next;
+        }
+        System.out.println("NULL");
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        RotateLinkedList solution = new RotateLinkedList();
+        System.out.println("Original List:");
+        solution.printList(head);
+
+        int k = 2;
+        ListNode rotatedHead = solution.rotateRight(head, k);
+
+        System.out.println("\nList after rotating right by " + k + " places:");
+        solution.printList(rotatedHead);
+    }
+}
